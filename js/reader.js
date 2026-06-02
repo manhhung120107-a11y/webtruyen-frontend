@@ -21,7 +21,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const STORY_ID = urlParams.get('id') || 1; 
 
 let currentChapter = 1; // Biến lưu số chương hiện tại
-
+let maxChapter = 1;     // Thêm dòng này: Biến lưu số chương lớn nhất của bộ truyện
 // =========================================================================
 // 2. LẤY CÁC THÀNH PHẦN GIAO DIỆN (DOM ELEMENTS)
 // =========================================================================
@@ -100,6 +100,11 @@ async function loadTableOfContents() {
         const data = await response.json();
         
         chapterSelect.innerHTML = ""; // Làm sạch ô chọn
+
+        // --- THÊM ĐOẠN NÀY ĐỂ TÌM CHƯƠNG MỚI NHẤT ---
+        if (data.chapters && data.chapters.length > 0) {
+            maxChapter = Math.max(...data.chapters.map(c => parseInt(c.chapter_number)));
+        }
         
         data.chapters.forEach(chapter => {
             const option = document.createElement("option");
@@ -157,6 +162,12 @@ async function loadChapter(chapterNumber) {
 
 // Nút chuyển chương tiếp theo
 btnNext.addEventListener("click", () => {
+    // Nếu chương hiện tại đã bằng hoặc lớn hơn chương lớn nhất -> Báo lỗi luôn
+    if (currentChapter >= maxChapter) {
+        alert("Bạn đang ở chương mới nhất của bộ truyện này rồi! 🎉");
+        return; // Dừng lại, không tăng số chương và không gọi API nữa
+    }
+    
     currentChapter++;
     loadChapter(currentChapter);
 });
