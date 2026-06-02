@@ -102,7 +102,7 @@ async function loadTableOfContents() {
         data.chapters.forEach(chapter => {
             const option = document.createElement("option");
             option.value = chapter.chapter_number;
-            option.textContent = chapter.title || `Chương ${chapter.chapter_number}`;
+            option.textContent = `Chương ${chapter.chapter_number}`;
             chapterSelect.appendChild(option);
         });
 
