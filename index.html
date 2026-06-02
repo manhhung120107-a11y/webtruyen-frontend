@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tủ Truyện Của Tôi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <h2>📚 Tủ Truyện</h2>
+        <button id="btn-theme">🌙 Giao diện Tối</button>
+    </div>
+
+    <div class="reader-container" style="margin-top: 50px;">
+        <div class="detail-box" style="margin-bottom: 40px; padding: 20px;">
+            <h3 style="color: #5d4037; margin-bottom: 15px;">➕ Thêm Bộ Truyện Mới</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <input type="text" id="add-title" placeholder="Tên truyện (Bắt buộc)" style="margin:0; padding: 8px;">
+                <input type="text" id="add-author" placeholder="Tác giả" style="margin:0; padding: 8px;">
+                <input type="text" id="add-genre" placeholder="Thể loại (Ví dụ: Đô Thị, Hệ Thống)" style="margin:0; padding: 8px;">
+                <input type="text" id="add-doc-id" placeholder="Google Doc ID (Bắt buộc)" style="margin:0; padding: 8px;">
+            </div>
+            <textarea id="add-description" placeholder="Tóm tắt truyện ngắn gọn..." rows="3" style="width: 100%; margin-top: 15px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; font-size: 14px;"></textarea>
+            <button id="btn-add-story" style="margin-top: 15px; background-color: #5d4037; color: white; width: 100%; padding: 10px;">Thêm Truyện Vào Tủ</button>
+        </div>
+
+        <h1 style="text-align: center; margin-bottom: 30px; color: inherit;">Truyện Đang Đọc</h1>
+        
+        <div class="story-grid" id="story-list">
+            <p>Đang tải danh sách truyện...</p>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đọc Truyện</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <button id="btn-home">🏠 Trang chủ</button>
+        
+        <div id="nav-chapter-title" class="nav-center-title"></div>
+
+        <div class="nav-right">
+            <button id="btn-sync" style="background-color: #e3f2fd; color: #1565c0; border-color: #90caf9;">🔄 Đồng bộ</button>
+            <button id="btn-theme">🌙 Giao diện Tối</button>
+        </div>
+    </div>
+
+    <div class="reader-container" style="margin-top: 50px;">
+        <h1 class="chapter-title" id="title">Đang tải truyện...</h1>
+        <div class="chapter-content" id="content"></div>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <button id="btn-prev">Chương trước</button>
+        <select id="chapter-select" class="chapter-dropdown">
+            <option value="">Đang tải mục lục...</option>
+        </select>
+        <button id="btn-next">Chương tiếp</button>
+    </div>
+
+    <script src="js/reader.js"></script>
+</body>
+</html>
