@@ -146,3 +146,15 @@ document.getElementById("btn-delete-story").addEventListener("click", async () =
         }
     }
 });
+
+// Kiểm tra phân quyền hiển thị Admin ở trang chi tiết truyện
+const loggedInUser = localStorage.getItem("username");
+if (loggedInUser !== "admin") {
+    // Ẩn nút Xóa truyện
+    const btnDelete = document.getElementById("btn-delete-story");
+    if (btnDelete) btnDelete.style.display = "none";
+
+    // Ẩn nút Đồng bộ truyện
+    const btnSync = document.getElementById("btn-sync");
+    if (btnSync) btnSync.style.display = "none";
+}

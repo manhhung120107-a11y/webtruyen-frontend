@@ -33,6 +33,15 @@ btnTheme.addEventListener("click", () => {
     }
 });
 
+// Kiểm tra phân quyền hiển thị Admin ở trang chủ
+const loggedInUser = localStorage.getItem("username");
+if (loggedInUser !== "admin") {
+    const adminSection = document.getElementById("admin-add-section");
+    if (adminSection) {
+        adminSection.style.display = "none"; // Nếu không phải admin thì ẩn cụm thêm truyện đi
+    }
+}
+
 // Lấy danh sách truyện từ Backend
 async function loadStories() {
     try {

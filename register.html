@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang=\"vi\">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - Tủ Truyện</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .login-box { max-width: 400px; margin: 100px auto; padding: 30px; background: #fff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        body.dark-mode .login-box { background: #252525; }
+        input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; box-sizing: border-box;}
+        .btn-login { width: 100%; padding: 12px; background: #2e7d32; color: #fff; font-size: 16px; border: none; cursor: pointer; border-radius: 5px;}
+        .btn-login:hover { background: #1b5e20; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2 style="color: #2e7d32; margin-bottom: 20px;">📝 ĐĂNG KÝ TÀI KHOẢN</h2>
+        <p id="error-msg" style="color: red; display: none; margin-bottom: 10px;"></p>
+        <p id="success-msg" style="color: green; display: none; margin-bottom: 10px;"></p>
+        
+        <input type="text" id="username" placeholder="Tên đăng nhập (Username)">
+        <input type="password" id="password" placeholder="Mật khẩu">
+        
+        <button id="btn-register" class="btn-login">Đăng Ký</button>
+        
+        <p style="margin-top: 20px; font-size: 14px;">
+            Đã có tài khoản? <a href="login.html" style="color: #5d4037; font-weight: bold;">Đăng nhập ngay</a>
+        </p>
+    </div>
+    <script src="js/register.js"></script>
+</body>
+</html>
