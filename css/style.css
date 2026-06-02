@@ -360,3 +360,11 @@ body.dark-mode .detail-chapter-item:hover { background: #333; }
         font-size: 16px !important;
         font-weight: bold !important;
     }
+
+/* Đảm bảo thanh điều hướng của trang chi tiết luôn giãn đều ra hai bên sau khi xóa tiêu đề */
+.nav-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box;
+}
