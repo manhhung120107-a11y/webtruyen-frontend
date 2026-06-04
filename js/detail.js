@@ -93,7 +93,7 @@ document.getElementById("btn-read-continue").addEventListener("click", () => {
 
 loadStoryDetails();
 
-// --- THÊM TÍNH NĂNG ĐỒNG BỘ NGAY TẠI TRANG GIỮ ---
+// --- THÊM TÍNH NĂNG ĐỒNG BỘ NGAY TẠI TRANG CHI TIẾT ---
 const btnSync = document.getElementById("btn-sync");
 btnSync.addEventListener("click", async () => {
     const originalText = btnSync.innerText;
@@ -101,7 +101,11 @@ btnSync.addEventListener("click", async () => {
     btnSync.disabled = true;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/sync/${STORY_ID}`, { method: 'POST' });
+        // 👉 FIX Ở ĐÂY: Thêm headers: authHeaders để gửi token lên backend
+        const response = await fetch(`${API_BASE_URL}/sync/${STORY_ID}`, { 
+            method: 'POST',
+            headers: authHeaders 
+        });
         const result = await response.json();
 
         if (response.ok) {
@@ -129,8 +133,10 @@ document.getElementById("btn-delete-story").addEventListener("click", async () =
     
     if (confirmDelete) {
         try {
+            // 👉 FIX Ở ĐÂY: Thêm headers: authHeaders để xác thực quyền Admin khi xóa truyện
             const response = await fetch(`${API_BASE_URL}/stories/${STORY_ID}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: authHeaders
             });
             const result = await response.json();
 
