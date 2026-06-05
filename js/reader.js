@@ -86,6 +86,18 @@ async function saveReadingHistory(chapterNumber) {
 // =========================================================================
 // 5. CÁC HÀM TẢI DỮ LIỆU (LOAD CONTENT & TOC)
 // =========================================================================
+
+// --- HÀM TỰ ĐỘNG TÔ MÀU THEO PHONG CÁCH TU TIÊN ---
+function formatTuTienText(text) {
+    if (!text) return "";
+    let formatted = text;
+
+    // 1. Tìm và bọc màu Lời thoại (những chữ nằm trong ngoặc kép " ")
+    formatted = formatted.replace(/"([^"]+)"/g, '<span class="dialogue">"$1"</span>');
+
+    return formatted;
+}
+
 async function loadTableOfContents() {
     try {
         const response = await fetch(`${API_BASE_URL}/stories/${STORY_ID}`);
@@ -128,7 +140,7 @@ async function loadChapter(chapterNumber) {
         navTitleEl.innerText = chapterTitle; 
         
         const paragraphs = data.content.split('\n').filter(p => p.trim() !== "");
-        contentEl.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+        contentEl.innerHTML = paragraphs.map(p => `<p>${formatTuTienText(p)}</p>`).join('');
 
         window.scrollTo(0, 0);
         chapterSelect.value = chapterNumber;
