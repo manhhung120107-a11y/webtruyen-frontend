@@ -87,15 +87,13 @@ async function saveReadingHistory(chapterNumber) {
 // 5. CÁC HÀM TẢI DỮ LIỆU (LOAD CONTENT & TOC)
 // =========================================================================
 
-// --- HÀM TỰ ĐỘNG TÔ MÀU THEO PHONG CÁCH TU TIÊN ---
+// --- HÀM TỰ ĐỘNG TÔ MÀU LỜI THOẠI NHÂN VẬT ---
 function formatTuTienText(text) {
     if (!text) return "";
-    let formatted = text;
-
-    // 1. Tìm và bọc màu Lời thoại (những chữ nằm trong ngoặc kép " ")
-    formatted = formatted.replace(/"([^"]+)"/g, '<span class="dialogue">"$1"</span>');
-
-    return formatted;
+    
+    // Tìm và bọc màu Lời thoại (những chữ nằm trong dấu ngoặc kép " ")
+    // Hoàn toàn không can thiệp hay tô màu bất kỳ tên riêng nào khác
+    return text.replace(/"([^"]+)"/g, '<span class="dialogue">"$1"</span>');
 }
 
 async function loadTableOfContents() {
