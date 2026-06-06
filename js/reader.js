@@ -187,6 +187,7 @@ btnHome.addEventListener("click", () => {
     window.location.href = "index.html";
 });
 
+// --- SỬA LẠI ĐOẠN NÀY TRONG READER.JS ---
 btnSync.addEventListener("click", async () => {
     const originalText = btnSync.innerText;
     btnSync.innerText = "⏳ Đang kéo dữ liệu...";
@@ -194,7 +195,8 @@ btnSync.addEventListener("click", async () => {
 
     try {
         const response = await fetch(`${API_BASE_URL}/sync/${STORY_ID}`, {
-            method: 'POST'
+            method: 'POST',
+            headers: authHeaders // 👈 THÊM DÒNG NÀY VÀO ĐÂY ĐỂ ĐÍNH KÈM TOKEN ĐĂNG NHẬP
         });
         const result = await response.json();
 
