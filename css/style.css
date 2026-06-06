@@ -35,17 +35,17 @@ body {
 
 .chapter-content p { margin-bottom: 24px; }
 
-/* --- CHẾ ĐỘ DARK MODE (TU TIÊN STYLE) --- */
+/* --- CHẾ ĐỘ DARK MODE (TU TIÊN STYLE - TINH GIẢN) --- */
 body.dark-mode {
-    background-color: #1a1510; /* Đen pha nâu sẫm */
-    color: #e2d8ce;
-    /* Họa tiết tia sáng hoàng kim mờ */
+    background-color: #1a1510; /* Nền đen pha nâu sẫm */
+    color: #e2d8ce; /* Chữ trắng ngà giảm mỏi mắt */
+    /* Họa tiết tia sáng hoàng kim mờ ẩn bên dưới */
     background-image: repeating-linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0px, rgba(245, 158, 11, 0.03) 5px, transparent 5px, transparent 15px);
 }
 
 body.dark-mode .reader-container, 
 body.dark-mode .detail-box {
-    background-color: rgba(44, 36, 28, 0.95);
+    background-color: rgba(44, 36, 28, 0.95); /* Khung nội dung nâu xám trầm */
     border: 2px solid #5c4d3c;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(245, 158, 11, 0.1);
     border-radius: 12px;
@@ -53,16 +53,15 @@ body.dark-mode .detail-box {
 
 body.dark-mode .chapter-title, 
 body.dark-mode #story-title {
-    color: #f59e0b !important;
+    color: #f59e0b !important; /* Tiêu đề màu vàng hổ phách chói lọi */
     text-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
     border-bottom-color: #5c4d3c;
 }
 
-/* --- BỘ TỪ KHÓA TÔ MÀU CHO JAVASCRIPT --- */
-body.dark-mode .dialogue { color: #fcd34d; }
-body.dark-mode .hl-emperor { color: #c084fc; font-weight: bold; text-shadow: 0 0 8px rgba(192, 132, 252, 0.5); }
-body.dark-mode .hl-love { color: #fb7185; font-style: italic; font-weight: bold; }
-body.dark-mode .hl-pill { color: #f59e0b; font-weight: bold; text-shadow: 0 0 5px rgba(245, 158, 11, 0.6); }
+/* CHỈ GIỮ LẠI TÔ MÀU CHO LỜI THOẠI */
+body.dark-mode .dialogue { 
+    color: #fcd34d; /* Lời thoại trong ngoặc kép hiện màu vàng sáng */
+}
 
 /* (Giữ nguyên các thành phần Dark Mode khác của bạn bên dưới) */
 body.dark-mode .nav-bar { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid #333; }
