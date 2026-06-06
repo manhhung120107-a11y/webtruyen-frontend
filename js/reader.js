@@ -92,7 +92,6 @@ function formatTuTienText(text) {
     if (!text) return "";
     
     // Tìm và bọc màu Lời thoại (những chữ nằm trong dấu ngoặc kép " ")
-    // Hoàn toàn không can thiệp hay tô màu bất kỳ tên riêng nào khác
     return text.replace(/"([^"]+)"/g, '<span class="dialogue">"$1"</span>');
 }
 

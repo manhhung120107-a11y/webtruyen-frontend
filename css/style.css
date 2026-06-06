@@ -35,47 +35,51 @@ body {
 
 .chapter-content p { margin-bottom: 24px; }
 
-/* --- CHẾ ĐỘ DARK MODE (TU TIÊN STYLE - TINH GIẢN) --- */
+/* --- CHẾ ĐỘ DARK MODE (CẤM KỴ TRANH PHONG - TINH GIẢN) --- */
 body.dark-mode {
-    background-color: #1a1510; /* Nền đen pha nâu sẫm */
-    color: #e2d8ce; /* Chữ trắng ngà giảm mỏi mắt */
-    /* Họa tiết tia sáng hoàng kim mờ ẩn bên dưới */
-    background-image: repeating-linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0px, rgba(245, 158, 11, 0.03) 5px, transparent 5px, transparent 15px);
+    background-color: #0a0a0a; /* Đen đặc */
+    color: #d1d5db; /* Bạc xám */
+    /* Họa tiết vết nứt không gian */
+    background-image: 
+        linear-gradient(45deg, rgba(220, 38, 38, 0.02) 25%, transparent 25%, transparent 75%, rgba(220, 38, 38, 0.02) 75%, rgba(220, 38, 38, 0.02)),
+        linear-gradient(-45deg, rgba(220, 38, 38, 0.02) 25%, transparent 25%, transparent 75%, rgba(220, 38, 38, 0.02) 75%, rgba(220, 38, 38, 0.02));
+    background-size: 60px 60px;
+    background-attachment: fixed;
 }
 
 body.dark-mode .reader-container, 
 body.dark-mode .detail-box {
-    background-color: rgba(44, 36, 28, 0.95); /* Khung nội dung nâu xám trầm */
-    border: 2px solid #5c4d3c;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(245, 158, 11, 0.1);
-    border-radius: 12px;
+    background-color: rgba(23, 23, 23, 0.95); /* Xám than đá */
+    border: 1px solid #3f3f46;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(220, 38, 38, 0.1);
+    border-radius: 4px;
 }
 
 body.dark-mode .chapter-title, 
 body.dark-mode #story-title {
-    color: #f59e0b !important; /* Tiêu đề màu vàng hổ phách chói lọi */
-    text-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
-    border-bottom-color: #5c4d3c;
+    color: #fcd34d !important; /* Vàng hổ phách */
+    text-shadow: 0 0 15px rgba(252, 211, 77, 0.3);
+    border-bottom-color: #3f3f46;
 }
 
-/* CHỈ GIỮ LẠI TÔ MÀU CHO LỜI THOẠI */
+/* TÔ MÀU CHO LỜI THOẠI */
 body.dark-mode .dialogue { 
-    color: #fcd34d; /* Lời thoại trong ngoặc kép hiện màu vàng sáng */
+    color: #bae6fd; 
+    font-style: italic; 
 }
 
-/* (Giữ nguyên các thành phần Dark Mode khác của bạn bên dưới) */
-body.dark-mode .nav-bar { background: rgba(26, 26, 26, 0.95); border-bottom: 1px solid #333; }
-body.dark-mode .nav-center-title { color: #8c8c8c; }
-body.dark-mode button { background: #2c2c2c; color: #aaa; border-color: #444; }
-body.dark-mode button:hover { background: #3d3d3d; }
-body.dark-mode .chapter-dropdown { background: #2c2c2c; color: #aaa; border-color: #444; }
-body.dark-mode .story-card { background: #252525; border-color: #333; box-shadow: none; }
-body.dark-mode .story-title { color: #d4d4d4; }
-body.dark-mode .genre-tag { background: #3d3d3d; color: #bbb; }
-body.dark-mode .summary-text { color: #aaa; }
-body.dark-mode .detail-chapter-list { border-color: #333; }
-body.dark-mode .detail-chapter-item { background: #1e1e1e; border-bottom-color: #2b2b2b; color: #bbb; }
-body.dark-mode .detail-chapter-item:hover { background: #333; }
+body.dark-mode .nav-bar { background: rgba(23, 23, 23, 0.95); border-bottom: 1px solid #3f3f46; }
+body.dark-mode .nav-center-title { color: #d1d5db; }
+body.dark-mode button { background: #171717; color: #d1d5db; border-color: #3f3f46; }
+body.dark-mode button:hover { background: #262626; }
+body.dark-mode .chapter-dropdown { background: #171717; color: #d1d5db; border-color: #3f3f46; }
+body.dark-mode .story-card { background: #171717; border-color: #3f3f46; box-shadow: none; }
+body.dark-mode .story-title { color: #fcd34d; }
+body.dark-mode .genre-tag { background: #262626; color: #d1d5db; }
+body.dark-mode .summary-text { color: #d1d5db; }
+body.dark-mode .detail-chapter-list { border-color: #3f3f46; }
+body.dark-mode .detail-chapter-item { background: #0a0a0a; border-bottom-color: #171717; color: #d1d5db; }
+body.dark-mode .detail-chapter-item:hover { background: #262626; }
 
 /* --- THANH ĐIỀU HƯỚNG & NÚT BẤM --- */
 .nav-bar {
