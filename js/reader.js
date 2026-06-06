@@ -96,8 +96,8 @@ function formatTuTienText(text) {
     // 1. Tìm và bọc màu Lời thoại nhân vật (chữ nằm trong dấu ngoặc kép " ")
     formatted = formatted.replace(/"([^"]+)"/g, '<span class="dialogue">"$1"</span>');
 
-    // 2. Tìm và bọc màu Thông báo hệ thống (chữ nằm trong dấu ngoặc vuông [ ])
-    formatted = formatted.replace(/(\[[^\]]+\])/g, '<span class="system-notice">$1</span>');
+    // 2. Tìm và bọc màu Thông báo hệ thống (chữ nằm trong dấu ngoặc vuông 【 】)
+    formatted = formatted.replace(/(【[^】]+】)/g, '<span class="system-notice">$1</span>');
 
     return formatted;
 }
