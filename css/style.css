@@ -68,6 +68,13 @@ body.dark-mode .dialogue {
     font-style: italic; 
 }
 
+/* 👉 THÊM ĐOẠN NÀY ĐỂ TÔ MÀU XANH DƯƠNG CHO THÔNG BÁO HỆ THỐNG */
+body.dark-mode .system-notice {
+    color: #3b82f6; /* Màu xanh dương công nghệ rực rỡ */
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); /* Hiệu ứng phát sáng nhẹ */
+}
+
 body.dark-mode .nav-bar { background: rgba(23, 23, 23, 0.95); border-bottom: 1px solid #3f3f46; }
 body.dark-mode .nav-center-title { color: #d1d5db; }
 body.dark-mode button { background: #171717; color: #d1d5db; border-color: #3f3f46; }
