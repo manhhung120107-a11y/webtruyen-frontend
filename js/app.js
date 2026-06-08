@@ -1,5 +1,9 @@
 // Kiểm tra xem đã đăng nhập chưa
 const token = localStorage.getItem("access_token");
+const authHeaders = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}` // Thẻ thông hành Admin
+};
 if (!token) {
     window.location.href = "login.html"; // Chưa đăng nhập thì đuổi về trang login
 }
@@ -104,9 +108,7 @@ document.getElementById("btn-add-story").addEventListener("click", async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/stories/`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: authHeaders,
             body: JSON.stringify(payload)
         });
 
