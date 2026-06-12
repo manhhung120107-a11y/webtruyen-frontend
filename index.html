@@ -7,43 +7,62 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="nav-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <div class="nav-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #5d4037; color: white;">
         <h2>📚 Tủ Truyện</h2>
         
         <div class="nav-right" style="display: flex; align-items: center; gap: 15px;">
-            <button id="btn-theme">🌙 Giao diện Tối</button>
+            <button id="btn-open-modal" style="background: #f59e0b; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">➕ Thêm truyện</button>
+            <button id="btn-theme" style="background: transparent; border: 1px solid white; color: white; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 13px;">🌙 Diện Tối</button>
             
-            <div class="user-menu-container">
-                <div class="user-profile-wrapper">
-                    <span class="user-avatar">👤</span>
-                    <button id="btn-dropdown-arrow" class="dropdown-arrow">▼</button>
+            <div class="user-menu-container" style="position: relative;">
+                <div class="user-profile-wrapper" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); padding: 6px 12px; border-radius: 20px;">
+                    <span class="user-avatar" style="user-select: none;">👤</span>
+                    <button id="btn-dropdown-arrow" class="dropdown-arrow" style="background: none; border: none; color: white; cursor: pointer; font-size: 11px; padding: 2px;">▼</button>
                 </div>
                 
                 <div id="user-dropdown" class="dropdown-content hidden">
                     <div id="user-info-name" class="dropdown-username">Hi, Admin!</div>
                     <div class="divider"></div>
-                    <a href="#" id="menu-history">📚 Lịch sử đọc</a>
+                    <a href="#" id="menu-history" class="dropdown-item">📚 Lịch sử đọc</a>
                     <div class="divider"></div>
-                    <a href="#" id="menu-logout" style="color: #ef4444 !important;">🚪 Đăng xuất</a>
+                    <a href="#" id="menu-logout" class="dropdown-item" style="color: #ef4444 !important;">🚪 Đăng xuất</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container" style="padding: 20px;">
-        <div id="admin-add-section" style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
-            <h3>➕ Thêm Truyện Mới</h3>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
-                <input type="text" id="add-title" placeholder="Tên truyện">
-                <input type="text" id="add-author" placeholder="Tác giả">
-                <input type="text" id="add-genre" placeholder="Thể loại">
-                <input type="text" id="add-doc-id" placeholder="Google Doc ID">
-                <input type="text" id="add-description" placeholder="Mô tả">
-                <button id="btn-add-story">Thêm Truyện</button>
-            </div>
-        </div>
-
+    <div class="container" style="padding: 20px; max-width: 1200px; margin: 0 auto;">
         <div id="story-list" class="story-grid"></div>
+    </div>
+
+    <div id="story-modal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <span id="btn-close-modal" class="modal-close-btn">&times;</span>
+            <h3 style="color: #5d4037; margin-bottom: 20px; text-align: center;">➕ Thêm Bộ Truyện Mới</h3>
+            
+            <div class="modal-form-group">
+                <label>Tên truyện <span style="color:red">*</span></label>
+                <input type="text" id="add-title" placeholder="Nhập tên bộ truyện...">
+            </div>
+            <div class="modal-form-group">
+                <label>Google Doc ID <span style="color:red">*</span></label>
+                <input type="text" id="add-doc-id" placeholder="Ví dụ: 1a2b3c4d5e...">
+            </div>
+            <div class="modal-form-group">
+                <label>Tác giả</label>
+                <input type="text" id="add-author" placeholder="Tên tác giả (nếu có)...">
+            </div>
+            <div class="modal-form-group">
+                <label>Thể loại</label>
+                <input type="text" id="add-genre" placeholder="Ví dụ: Đô Thị, Huyền Huyễn...">
+            </div>
+            <div class="modal-form-group">
+                <label>Mô tả / Tóm tắt ngắn</label>
+                <textarea id="add-description" placeholder="Nội dung tóm tắt sơ lược..." rows="3"></textarea>
+            </div>
+            
+            <button id="btn-add-story" style="width: 100%; padding: 12px; background: #5d4037; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px;">Lưu và Thêm Truyện</button>
+        </div>
     </div>
 
     <script src="js/app.js"></script>
