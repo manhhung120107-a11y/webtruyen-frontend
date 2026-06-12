@@ -242,7 +242,7 @@ body.dark-mode .chapter-title {
     font-family: 'Georgia', 'Times New Roman', serif; /* Font Serif đọc cực mượt */
     font-size: 22px;
     line-height: 1.8;
-    text-align: justify; /* Căn đều 2 mép chữ */
+    text-align: left; /* Căn đều 2 mép chữ */
     color: #2b1d12;
 }
 body.dark-mode .chapter-content { color: #cebcaa; }
