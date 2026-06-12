@@ -134,3 +134,61 @@ document.getElementById("btn-add-story").addEventListener("click", async () => {
         alert("Không thể kết nối đến server để thêm truyện.");
     }
 });
+
+// =========================================================================
+// LOGIC XỬ LÝ USER MENU DROPDOWN & ĐĂNG XUẤT NÀY VÀO CUỐI FILE APP.JS
+// =========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const btnAvatar = document.getElementById("btn-user-avatar");
+    const userDropdown = document.getElementById("user-dropdown");
+    const btnLogout = document.getElementById("menu-logout");
+    const userInfoName = document.getElementById("user-info-name");
+
+    // 1. Hiển thị tên người dùng đã đăng nhập từ localStorage
+    const savedUsername = localStorage.getItem("username");
+    if (savedUsername && userInfoName) {
+        userInfoName.innerText = `Hi, ${savedUsername}!`;
+    }
+
+    // 2. Click vào Avatar để Ẩn/Hiện menu thả xuống
+    if (btnAvatar && userDropdown) {
+        btnAvatar.addEventListener("click", (event) => {
+            event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài body
+            userDropdown.classList.toggle("hidden");
+        });
+    }
+
+    // 3. Click ra ngoài vùng menu thì tự động đóng menu lại
+    document.addEventListener("click", (event) => {
+        if (userDropdown && !userDropdown.classList.contains("hidden")) {
+            if (!userDropdown.contains(event.target) && !btnAvatar.contains(event.target)) {
+                userDropdown.classList.add("hidden");
+            }
+        }
+    });
+
+    // 4. Xử lý logic ĐĂNG XUẤT triệt để
+    if (btnLogout) {
+        btnLogout.addEventListener("click", (event) => {
+            event.preventDefault(); // Chặn thẻ a chuyển trang rác
+            
+            // Xóa sạch Token và thông tin User để tránh lỗi 401 Unauthorized về sau
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("username");
+            
+            alert("Đăng xuất thành công! Hẹn gặp lại bạn. 👋");
+            
+            // Điều hướng thẳng về trang đăng nhập
+            window.location.href = "login.html";
+        });
+    }
+
+    // 5. Tính năng Lịch sử đọc (Hiện tại hướng về trang chủ hoặc thông báo phát triển sau)
+    const btnHistory = document.getElementById("menu-history");
+    if (btnHistory) {
+        btnHistory.addEventListener("click", (event) => {
+            event.preventDefault();
+            alert("Tính năng Lịch sử đọc tổng hợp đang được phát triển nâng cấp hệ thống!");
+        });
+    }
+});
