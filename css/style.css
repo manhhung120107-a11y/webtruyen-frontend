@@ -244,6 +244,8 @@ body.dark-mode .chapter-title {
     line-height: 1.8;
     text-align: left; /* Căn đều 2 mép chữ */
     color: #2b1d12;
+    letter-spacing: normal; /* Ép khoảng cách ký tự về mặc định */
+    word-spacing: normal;   /* Ép khoảng cách từ về mặc định */
 }
 body.dark-mode .chapter-content { color: #cebcaa; }
 
