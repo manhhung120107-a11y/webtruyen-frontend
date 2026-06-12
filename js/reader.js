@@ -1,7 +1,6 @@
 // =========================================================================
 // 1. CẤU HÌNH BAN ĐẦU & KIỂM TRA ĐĂNG NHẬP
 // =========================================================================
-// !!! BẠN NHỚ KIỂM TRA VÀ SỬA ĐÚNG LINK RENDER CỦA BẠN Ở ĐÂY !!!
 const API_BASE_URL = "https://webtruyen-fzba.onrender.com/api"; 
 
 const token = localStorage.getItem("access_token");
@@ -18,10 +17,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const STORY_ID = urlParams.get('id') || 1; 
 
 let currentChapter = 1; 
-let maxChapter = 1;     // Biến lưu số chương lớn nhất để chặn pop-up
+let maxChapter = 1;
 
 // =========================================================================
-// 2. LẤY CÁC THÀNH PHẦN GIAO DIỆN (DOM ELEMENTS)
+// 2. DOM ELEMENTS
 // =========================================================================
 const titleEl = document.getElementById("title");
 const contentEl = document.getElementById("content");
@@ -35,26 +34,28 @@ const btnHome = document.getElementById("btn-home");
 const btnSync = document.getElementById("btn-sync");
 
 // =========================================================================
-// 3. XỬ LÝ GIAO DIỆN TỐI / SÁNG (DARK MODE)
+// 3. GIAO DIỆN TỐI / SÁNG
 // =========================================================================
 if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
-    btnTheme.innerText = "☀️ Giao diện Sáng";
+    if(btnTheme) btnTheme.innerText = "☀️ Giao diện Sáng";
 }
 
-btnTheme.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("theme", "dark");
-        btnTheme.innerText = "☀️ Giao diện Sáng";
-    } else {
-        localStorage.setItem("theme", "light");
-        btnTheme.innerText = "🌙 Giao diện Tối";
-    }
-});
+if (btnTheme) {
+    btnTheme.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+            btnTheme.innerText = "☀️ Giao diện Sáng";
+        } else {
+            localStorage.setItem("theme", "light");
+            btnTheme.innerText = "🌙 Giao diện Tối";
+        }
+    });
+}
 
 // =========================================================================
-// 4. CÁC HÀM XỬ LÝ LỊCH SỬ ĐỌC (READING HISTORY)
+// 4. LỊCH SỬ ĐỌC
 // =========================================================================
 async function fetchReadingHistory() {
     try {
@@ -66,7 +67,7 @@ async function fetchReadingHistory() {
             return data.current_chapter_number;
         }
     } catch (error) {
-        console.error("Lỗi lấy lịch sử đọc:", error);
+        console.error("Lỗi lấy lịch sử:", error);
     }
     return 1;
 }
@@ -77,26 +78,24 @@ async function saveReadingHistory(chapterNumber) {
             method: "POST",
             headers: authHeaders
         });
-        console.log("Đã lưu lịch sử đọc ngầm: Chương", chapterNumber);
     } catch (error) {
-        console.error("Lỗi lưu lịch sử đọc:", error);
+        console.error("Lỗi lưu lịch sử:", error);
     }
 }
 
 // =========================================================================
-// 5. CÁC HÀM TẢI DỮ LIỆU (LOAD CONTENT & TOC)
+// 5. XỬ LÝ TEXT VÀ TẢI NỘI DUNG (NHUỘM MÀU LỜI THOẠI)
 // =========================================================================
 
-// --- HÀM TỰ ĐỘNG TÔ MÀU LỜI THOẠI & THÔNG BÁO HỆ THỐNG ---
+// Hàm tự động phát hiện và bọc lời thoại bằng thẻ <span> để CSS nhuộm vàng
 function formatTuTienText(text) {
     if (!text) return "";
-    
     let formatted = text;
 
-    // 1. Tìm và bọc màu Lời thoại nhân vật (chữ nằm trong dấu ngoặc kép " ")
-    formatted = formatted.replace(/"([^"]+)"/g, '<span class="dialogue">"$1"</span>');
+    // Quét lời thoại nằm trong ngoặc kép kép (hỗ trợ cả dấu " và dấu “ ”)
+    formatted = formatted.replace(/(“[^”]+”|"[^"]+")/g, '<span class="dialogue">$1</span>');
 
-    // 2. Tìm và bọc màu Thông báo hệ thống (chữ nằm trong dấu ngoặc vuông 【 】)
+    // Quét thông báo hệ thống nằm trong dấu 【 】
     formatted = formatted.replace(/(【[^】]+】)/g, '<span class="system-notice">$1</span>');
 
     return formatted;
@@ -108,9 +107,9 @@ async function loadTableOfContents() {
         if (!response.ok) return;
         const data = await response.json();
         
+        if (!chapterSelect) return;
         chapterSelect.innerHTML = ""; 
         
-        // Tìm số chương lớn nhất trong danh sách mục lục
         if (data.chapters && data.chapters.length > 0) {
             maxChapter = Math.max(...data.chapters.map(c => parseInt(c.chapter_number)));
         }
@@ -129,103 +128,115 @@ async function loadTableOfContents() {
 }
 
 async function loadChapter(chapterNumber) {
-    titleEl.innerText = "Đang tải...";
+    if (!titleEl || !contentEl) return;
+
+    titleEl.innerText = "⏳ Đang tải nội dung...";
     contentEl.innerHTML = "";
-    navTitleEl.innerText = ""; 
+    if (navTitleEl) navTitleEl.innerText = ""; 
 
     try {
         const response = await fetch(`${API_BASE_URL}/stories/${STORY_ID}/chapters/${chapterNumber}`);
-        if (!response.ok) throw new Error("Không tìm thấy chương này!");
+        if (!response.ok) throw new Error("Không tìm thấy chương");
 
         const data = await response.json();
         const chapterTitle = data.title || `Chương ${data.chapter_number}`;
         
         titleEl.innerText = chapterTitle;
-        navTitleEl.innerText = chapterTitle; 
+        if (navTitleEl) navTitleEl.innerText = chapterTitle; 
         
+        // Tách dòng và áp dụng bộ lọc hội thoại
         const paragraphs = data.content.split('\n').filter(p => p.trim() !== "");
         contentEl.innerHTML = paragraphs.map(p => `<p>${formatTuTienText(p)}</p>`).join('');
 
         window.scrollTo(0, 0);
-        chapterSelect.value = chapterNumber;
+        if (chapterSelect) chapterSelect.value = chapterNumber;
         
         saveReadingHistory(chapterNumber);
         
     } catch (error) {
-        titleEl.innerText = "Hết truyện!";
-        contentEl.innerHTML = `<p style="color: #c0392b; text-align: center; font-weight: bold;">Bạn đã đọc hết các chương hiện có của bộ truyện này.</p>`;
+        titleEl.innerText = "Đã hết chương!";
+        contentEl.innerHTML = `<p style="color: #ef4444; text-align: center; font-weight: bold; margin-top: 40px;">Truyện đang được cập nhật thêm, vui lòng quay lại sau.</p>`;
     }
 }
 
 // =========================================================================
-// 6. SỰ KIỆN CỦA CÁC NÚT BẤM & CUỘN CHUỘT (EVENT LISTENERS)
+// 6. SỰ KIỆN NÚT BẤM (CHUYỂN CHƯƠNG & ĐỒNG BỘ)
 // =========================================================================
-
-// Nút chuyển chương tiếp theo (Có pop-up chặn)
-btnNext.addEventListener("click", () => {
-    if (currentChapter >= maxChapter) {
-        alert("Bạn đang ở chương mới nhất của bộ truyện này rồi! 🎉");
-        return;
-    }
-    currentChapter++;
-    loadChapter(currentChapter);
-});
-
-btnPrev.addEventListener("click", () => {
-    if (currentChapter > 1) {
-        currentChapter--;
-        loadChapter(currentChapter);
-    }
-});
-
-chapterSelect.addEventListener("change", (e) => {
-    currentChapter = parseInt(e.target.value);
-    loadChapter(currentChapter);
-});
-
-btnHome.addEventListener("click", () => {
-    window.location.href = "index.html";
-});
-
-// --- SỬA LẠI ĐOẠN NÀY TRONG READER.JS ---
-btnSync.addEventListener("click", async () => {
-    const originalText = btnSync.innerText;
-    btnSync.innerText = "⏳ Đang kéo dữ liệu...";
-    btnSync.disabled = true;
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/sync/${STORY_ID}`, {
-            method: 'POST',
-            headers: authHeaders // 👈 THÊM DÒNG NÀY VÀO ĐÂY ĐỂ ĐÍNH KÈM TOKEN ĐĂNG NHẬP
-        });
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(result.message);
-            await loadTableOfContents();
-            await loadChapter(currentChapter);
-        } else {
-            alert("Lỗi đồng bộ: " + result.detail);
+if (btnNext) {
+    btnNext.addEventListener("click", () => {
+        if (currentChapter >= maxChapter) {
+            alert("Bạn đang ở chương mới nhất!");
+            return;
         }
-    } catch (error) {
-        console.error("Lỗi:", error);
-        alert("Không thể kết nối đến server để đồng bộ.");
-    } finally {
-        btnSync.innerText = originalText;
-        btnSync.disabled = false;
-    }
-});
+        currentChapter++;
+        loadChapter(currentChapter);
+    });
+}
 
-window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-        navTitleEl.classList.add("show");
-    } else {
-        navTitleEl.classList.remove("show"); 
-    }
-});
+if (btnPrev) {
+    btnPrev.addEventListener("click", () => {
+        if (currentChapter > 1) {
+            currentChapter--;
+            loadChapter(currentChapter);
+        }
+    });
+}
+
+if (chapterSelect) {
+    chapterSelect.addEventListener("change", (e) => {
+        currentChapter = parseInt(e.target.value);
+        loadChapter(currentChapter);
+    });
+}
+
+if (btnHome) {
+    btnHome.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+}
+
+if (btnSync) {
+    btnSync.addEventListener("click", async () => {
+        const originalText = btnSync.innerText;
+        btnSync.innerText = "⏳ Đang đồng bộ...";
+        btnSync.disabled = true;
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/sync/${STORY_ID}`, {
+                method: 'POST',
+                headers: authHeaders 
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Đồng bộ thành công! " + (result.message || ""));
+                await loadTableOfContents();
+                await loadChapter(currentChapter);
+            } else {
+                alert("Lỗi đồng bộ: " + result.detail);
+            }
+        } catch (error) {
+            console.error("Lỗi:", error);
+            alert("Không thể kết nối đến server để đồng bộ.");
+        } finally {
+            btnSync.innerText = originalText;
+            btnSync.disabled = false;
+        }
+    });
+}
+
+if (navTitleEl) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 100) {
+            navTitleEl.classList.add("show");
+        } else {
+            navTitleEl.classList.remove("show"); 
+        }
+    });
+}
 
 // =========================================================================
-// 7. HÀM KHỞI CHẠY HỆ THỐNG KHI TRANG SẴN SÀNG
+// 7. KHỞI CHẠY TRANG ĐỌC
 // =========================================================================
 async function initReader() {
     await loadTableOfContents(); 
