@@ -32,11 +32,11 @@ const storyModal = document.getElementById("story-modal");
 const btnAddStory = document.getElementById("btn-add-story");
 
 // =========================================================================
-// 3. XỬ LÝ ẨN HIỆN MENU MŨI TÊN (DROPDOWN)
+// 3. XỬ LÝ ẨN HIỆN MENU DROPDOWN (BẤM VÀO CỤM MŨI TÊN)
 // =========================================================================
 if (btnArrow && userDropdown) {
     btnArrow.addEventListener("click", (event) => {
-        event.stopPropagation(); // Ngăn sự kiện lan ra ngoài bấm nhầm đóng menu
+        event.stopPropagation(); // Ngăn sự kiện đóng ngược menu khi click chính nó
         userDropdown.classList.toggle("hidden");
     });
 }
@@ -44,7 +44,8 @@ if (btnArrow && userDropdown) {
 // Click bất kỳ vị trí nào bên ngoài thì thu gọn menu lại
 document.addEventListener("click", (event) => {
     if (userDropdown && !userDropdown.classList.contains("hidden")) {
-        if (!userDropdown.contains(event.target) && btnArrow && !btnArrow.contains(event.target)) {
+        // Nếu click không thuộc vùng dropdown và không thuộc nút bấm mở dropdown thì đóng
+        if (!userDropdown.contains(event.target) && !btnArrow.contains(event.target)) {
             userDropdown.classList.add("hidden");
         }
     }
@@ -56,7 +57,7 @@ if (savedUsername && userInfoName) {
     userInfoName.innerText = `Hi, ${savedUsername}!`;
 }
 
-// Logic Đăng xuất xử lý triệt để
+// Logic Đăng xuất
 if (btnLogout) {
     btnLogout.addEventListener("click", (event) => {
         event.preventDefault();
@@ -72,17 +73,16 @@ if (btnLogout) {
 // =========================================================================
 if (btnOpenModal && storyModal) {
     btnOpenModal.addEventListener("click", () => {
-        storyModal.classList.remove("hidden"); // Hiện cửa sổ nhập thông tin
+        storyModal.classList.remove("hidden");
     });
 }
 
 if (btnCloseModal && storyModal) {
     btnCloseModal.addEventListener("click", () => {
-        storyModal.classList.add("hidden"); // Đóng cửa sổ bằng dấu X
+        storyModal.classList.add("hidden");
     });
 }
 
-// Click ra ngoài khoảng không của popup cũng tự động đóng
 if (storyModal) {
     storyModal.addEventListener("click", (event) => {
         if (event.target === storyModal) {
@@ -145,7 +145,6 @@ async function loadStories() {
                     <div class="story-title" style="font-weight: bold; font-size: 18px; color: #5d4037;">📚 ${story.title}</div>
                     <div class="story-author" style="font-size: 13px; color: #666; margin-top: 5px;">Tác giả: ${story.author || 'Đang cập nhật'}</div>
                 `;
-                // Đóng gói chuyển hướng trang đọc chi tiết
                 card.addEventListener("click", () => {
                     window.location.href = `detail.html?id=${story.id}`;
                 });
@@ -156,7 +155,7 @@ async function loadStories() {
         }
     } catch (error) {
         console.error(error);
-        storyListEl.innerHTML = `<p style="color:red">❌ Máy chủ backend Render đang khởi động lại hoặc mất kết nối mạng!</p>`;
+        storyListEl.innerHTML = `<p style="color:red">❌ Máy chủ backend đang bận hoặc mất kết nối mạng!</p>`;
     }
 }
 
@@ -197,15 +196,14 @@ if (btnAddStory) {
             if (response.ok) {
                 alert("🎉 Thêm truyện vào tủ thành công!");
                 
-                // Xóa sạch dữ liệu cũ trong form để chuẩn bị cho lần sau
                 document.getElementById("add-title").value = "";
                 document.getElementById("add-author").value = "";
                 document.getElementById("add-genre").value = "";
                 document.getElementById("add-doc-id").value = "";
                 document.getElementById("add-description").value = "";
                 
-                storyModal.classList.add("hidden"); // Tự động đóng cửa sổ popup lại sau khi lưu thành công
-                loadStories(); // Tải lại danh sách truyện mới ngay lập tức
+                storyModal.classList.add("hidden"); // Tự động đóng popup
+                loadStories(); 
             } else {
                 alert("Lỗi từ máy chủ: " + (result.detail || "Không rõ nguyên nhân"));
             }
