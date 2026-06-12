@@ -14,7 +14,11 @@
             <button id="btn-theme">🌙 Giao diện Tối</button>
             
             <div class="user-menu-container">
-                <button id="btn-user-avatar" class="user-avatar">👤</button>
+                <div class="user-profile-wrapper">
+                    <span class="user-avatar">👤</span>
+                    <button id="btn-dropdown-arrow" class="dropdown-arrow">▼</button>
+                </div>
+                
                 <div id="user-dropdown" class="dropdown-content hidden">
                     <div id="user-info-name" class="dropdown-username">Hi, Admin!</div>
                     <div class="divider"></div>
@@ -24,6 +28,22 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="container" style="padding: 20px;">
+        <div id="admin-add-section" style="margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
+            <h3>➕ Thêm Truyện Mới</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                <input type="text" id="add-title" placeholder="Tên truyện">
+                <input type="text" id="add-author" placeholder="Tác giả">
+                <input type="text" id="add-genre" placeholder="Thể loại">
+                <input type="text" id="add-doc-id" placeholder="Google Doc ID">
+                <input type="text" id="add-description" placeholder="Mô tả">
+                <button id="btn-add-story">Thêm Truyện</button>
+            </div>
+        </div>
+
+        <div id="story-list" class="story-grid"></div>
     </div>
 
     <script src="js/app.js"></script>
