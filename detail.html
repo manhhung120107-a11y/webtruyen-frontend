@@ -3,55 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông Tin Truyện Chi Tiết</title>
+    <title>Thông Tin Truyện</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <div class="nav-bar">
         <button id="btn-back">⬅️ Tủ Truyện</button>
-        <h3 id="nav-story-title" class="hidden"></h3>
+        <h3 id="nav-story-title" style="display: none;"></h3>
         
-        <div class="nav-right">
-            <button id="btn-sync">🔄 Đồng bộ</button>
+        <div class="nav-right" style="display: flex; gap: 10px;">
+            <button id="btn-sync" style="background-color: #e3f2fd; color: #1565c0; border-color: #90caf9;">🔄 Đồng bộ</button>
             <button id="btn-theme">🌙 Giao diện Tối</button>
         </div>
     </div>
 
-    <div class="reader-container">
-        
+    <div class="reader-container" style="margin-top: 60px;">
         <div class="detail-box">
             <div class="story-info-header">
-                <h1 id="story-title">Tên Truyện</h1>
+                <h1 id="story-title" style="color: #5d4037; margin-bottom: 5px;">Tên Truyện</h1>
+                <p id="story-author" style="color: #888; font-style: italic;">Tác giả: ...</p>
+                <div id="genres" class="genre-container"></div>
                 
-                <div class="story-meta-item">
-                    <strong>✍️ Tác giả:</strong> <span id="story-author">Đang tải...</span>
-                </div>
-                
-                <div class="story-meta-item">
-                    <strong>🏷️ Thể loại:</strong> <span id="story-genre" class="genre-tag">Đang tải...</span>
-                </div>
-                
-                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <button id="btn-read-first">Đọc Từ Đầu</button>
-                        <button id="btn-read-continue">Đọc Tiếp</button>
+                        <button id="btn-read-first" style="background-color: #5d4037; color: white;">Đọc Từ Đầu</button>
+                        <button id="btn-read-continue" style="background-color: #2e7d32; color: white; border-color: #1b5e20;">Đọc Tiếp</button>
                     </div>
-                    <button id="btn-delete-story">🗑️ Xóa truyện này</button>
+                    <button id="btn-delete-story" style="background-color: #ffebee; color: #c62828; border: 1px solid #ffbade; padding: 8px 15px;">🗑️ Xóa truyện này</button>
                 </div>
             </div>
             
-            <div class="divider" style="margin: 20px 0;"></div>
-            
-            <h3 style="color: #5d4037; margin-bottom: 8px;">📝 Tóm tắt nội dung:</h3>
-            <p id=\"story-summary\" class=\"summary-text\">Đang tải tóm tắt truyện...</p>
+            <h3>📝 Tóm tắt nội dung:</h3>
+            <p id="story-summary" class="summary-text" style="margin-top: 10px;">Đang tải tóm tắt...</p>
         </div>
 
-        <h3 style="color: #5d4037; margin-bottom: 15px; padding-left: 5px;">📑 Danh sách chương</h3>
-        <div class="chapter-scroll-box">
-            <ul id="chapter-list">
-                </ul>
-        </div>
+        <h3 style="margin-left: 5px; color: #5d4037;">📚 Danh sách chương:</h3>
+        <ul id="chapter-list-container" class="detail-chapter-list">
+            <li class="detail-chapter-item">Đang tải danh sách chương...</li>
+        </ul>
     </div>
 
     <script src="js/detail.js"></script>
