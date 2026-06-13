@@ -222,7 +222,7 @@ body.dark-mode .modal-form-group input, body.dark-mode .modal-form-group textare
 }
 
 .chapter-title {
-    font-family: 'Georgia', 'Palatino Linotype', serif;
+    font-family: inherit;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
@@ -239,18 +239,16 @@ body.dark-mode .chapter-title {
 
 /* Nội dung truyện chuẩn UX */
 .chapter-content {
-    font-family: 'Georgia', 'Times New Roman', serif; /* Font Serif đọc cực mượt */
-    font-size: 22px;
-    line-height: 1.8;
+    font-family: inherit;
+    font-size: 20px;
+    line-height: 1.6;
     text-align: left; /* Căn đều 2 mép chữ */
     color: #2b1d12;
-    letter-spacing: normal; /* Ép khoảng cách ký tự về mặc định */
-    word-spacing: normal;   /* Ép khoảng cách từ về mặc định */
 }
 body.dark-mode .chapter-content { color: #cebcaa; }
 
 .chapter-content p {
-    margin-bottom: 24px; /* Giãn cách các đoạn văn */
+    margin-bottom: 22px; /* Giãn cách các đoạn văn */
 }
 
 /* Khu vực chọn chương dưới chân trang */
